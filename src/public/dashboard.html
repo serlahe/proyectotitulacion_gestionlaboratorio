@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorio Clinico</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <div class="layout">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+            <h3>Laboratorio</h3>
+
+            <button onclick="mostrarSeccion('avisos')">Avisos urgentes</button>
+            <button onclick="mostrarSeccion('criticos')">Valores criticos</button>
+            <button onclick="mostrarSeccion('pacientes')">Registro pacientes</button>
+            <button onclick="mostrarSeccion('insumos')">Gestion de insumos</button>
+            <button onclick="mostrarSeccion('auditoria')">Auditoria</button>
+
+            <button id="btnUsuarios" onclick="mostrarSeccion('usuarios')">Usuarios</button>
+
+
+            <div class="cerrarsesion">
+                <button onclick="logout()">Cerrar sesion</button>
+            </div>
+
+            <div class="usuario">
+                Usuario: <span id="nombreUsuario"></span>
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- CONTENIDO AVISOS-->
+        <main class="contenido">
+
+            <section id="avisos" class="seccion">
+                <h2>Avisos urgentes</h2>
+
+                <form id="formAviso">
+                    <select id="tipoAviso" required>
+                        <option value="">Seleccione tipo</option>
+                        <option value="CRITICO">Critico</option>
+                        <option value="URGENTE">Urgente</option>
+                        <option value="IMPORTANTE">Importante</option>
+                        <option value="ESTANDAR">Estandar</option>
+                    </select>
+
+                    <textarea id="mensajeAviso" placeholder="Mensaje del aviso" required></textarea>
+
+                    <button type="submit">Crear aviso</button>
+                </form>
+
+                <hr>
+
+                <ul id="listaAvisos" class="lista-avisos"></ul>
+            </section>
+
+
+
+            <!-- VALOR CRÍTICO -->
+            <section id="criticos" class="seccion">
+                <h2>Valores críticos</h2>
+                <form id="formCritico">
+                    <input type="text" id="pacienteCritico" placeholder="Nombre del paciente" required>
+                    <input type="text" id="examenCritico" placeholder="Examen" required>
+                    <input type="number" id="resultadoCritico" required>
+                    <input type="text" id="limiteCritico" required>
+                    <button type="submit">Registrar valor critico</button>
+                </form>
+
+
+                <hr>
+
+                <table id="tablaCriticos">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Examen</th>
+                            <th>Resultado</th>
+                            <th>Límite</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+
+
+            <section id="pacientes" class="seccion">
+                <h2>Módulo pacientes</h2>
+                <p>En desarrollo</p>
+            </section>
+
+
+
+
+            <!-- FORMULARIO INSUMOS -->
+            <section id="insumos" class="seccion">
+                <h2>Gestion de insumos</h2>
+                <form id="formInsumo">
+                    <input type="text" id="nombre" placeholder="Nombre insumo" required>
+                    <input type="number" id="stock_actual" placeholder="Stock inicial" required>
+                    <input type="number" id="stock_minimo" placeholder="Stock minimo" required>
+                    <button type="submit">Agregar</button>
+                </form>
+
+                <hr>
+
+
+
+
+                <!-- TABLA -->
+                <table id="tablaInsumos">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Stock</th>
+                            <th>Minimo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <h3>Historial de movimientos</h3>
+
+                <table id="tablaMovimientos">
+                    <thead>
+                        <tr>
+                            <th>Insumo</th>
+                            <th>Movimiento</th>
+                            <th>Cantidad</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </section>
+
+
+
+
+
+            <!-- AUDITORIA -->
+            <section id="auditoria" class="seccion">
+                <h2>Registro de auditorí­a</h2>
+
+                <table id="tablaAuditoria">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Accion</th>
+                            <th>Tabla</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+
+        </main>
+
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="avisos.js"></script>
+    <script src="insumos.js"></script>
+    <script src="movimientos.js"></script>
+    <script src="valoresCriticos.js"></script>
+    <script src="auditoria.js"></script>
+</body>
+</html>
+
+

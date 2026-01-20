@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f8ff;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.login-container {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 340px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    /* TITULO */
+
+    .login-container h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #4da3ff;
+    }
+
+/* FORMULARIO */
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    /* INPUTS */
+
+    #loginForm input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+    }
+
+        #loginForm input:focus {
+            outline: none;
+            border-color: #4da3ff;
+        }
+
+    /* BOTON */
+
+    #loginForm button {
+        background-color: #4da3ff;
+        color: #ffffff;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+        #loginForm button:hover {
+            background-color: #368fe0;
+        }
+
+/* MENSAJES */
+
+#mensaje {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #cc0000;
+}
