@@ -1,20 +1,23 @@
-﻿module.exports = function rolesPermitidos(...rolesPermitidos) {
+﻿module.exports = (...rolesPermitidos) => {
     return (req, res, next) => {
 
-        if (!req.usuario || !req.usuario.id_rol) {
+        if (!req.usuario || req.usuario.id_rol == null) {
             return res.status(401).json({
                 mensaje: 'Usuario no autenticado'
             });
         }
 
-        if (!rolesPermitidos.includes(req.usuario.id_rol)) {
+        const rolUsuario = Number(req.usuario.id_rol);
+
+        if (!rolesPermitidos.includes(rolUsuario)) {
             return res.status(403).json({
-                mensaje: 'No tienes permisos para esta accion'
+                mensaje: 'No tienes permisos para esta acción'
             });
         }
 
         next();
     };
 };
+
 
 

@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    document.getElementById('nombreUsuario').innerText =
+    document.getElementById('nombreUsuarioLabel').innerText =
         usuario.nombre_completo;
+
 
     const idRol = usuario.id_rol;
 
@@ -80,18 +81,40 @@ function mostrarSeccion(id) {
         .forEach(s => s.style.display = 'none');
 
     const seccion = document.getElementById(id);
-
-    if (!seccion) {
-        console.error(`No existe la sección con id: ${id}`);
-        return;
-    }
+    if (!seccion) return;
 
     seccion.style.display = 'block';
 
-    if (id === 'criticos') {
-        cargarCriticos();
+
+
+
+
+    // Cargar datos específicos de la sección
+    if (id === 'pacientes') {
+        cargarPacientes();
     }
+
+    if (id === 'criticos') {
+        if (typeof cargarPacientesCriticos === 'function') {
+            cargarPacientesCriticos();
+        }
+        if (typeof cargarCriticos === 'function') {
+            cargarCriticos();
+        }
+    }
+
+
+    if (id === 'auditoria') {
+        if (typeof cargarAuditoria === 'function') {
+            cargarAuditoria();
+        }
+    }
+
 }
+
+   
+
+
 
 
 

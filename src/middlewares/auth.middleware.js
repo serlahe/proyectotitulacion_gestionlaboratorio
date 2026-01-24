@@ -1,10 +1,9 @@
 ﻿const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'laboratorio_secret';
+
+const SECRET_KEY = process.env.JWT_SECRET || 'laboratorio_secret';
 
 module.exports = (req, res, next) => {
     const authHeader = req.headers.authorization;
-
-
 
     if (!authHeader) {
         return res.status(401).json({ mensaje: 'Token requerido' });
@@ -17,10 +16,9 @@ module.exports = (req, res, next) => {
         req.usuario = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({ mensaje: 'Token no válido o expirado' });
+        return res.status(401).json({ mensaje: 'Token inválido o expirado' });
     }
 };
-
 
 
 

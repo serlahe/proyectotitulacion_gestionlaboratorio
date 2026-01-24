@@ -10,6 +10,11 @@
 
     const form = document.getElementById('formCritico');
     const tbody = document.querySelector('#tablaCriticos tbody');
+    
+
+
+
+
 
     /* LISTAR VALORES CRÍTICOS */
     window.cargarCriticos = async function () {
@@ -41,9 +46,16 @@
     };
 
 
+
+
+
+
     /* REGISTRAR VALOR CRÍTICO */
+    let enviando = false;
     form.addEventListener('submit', async e => {
         e.preventDefault();
+        if (enviando) return;
+        enviando = true;
 
         const body = {
             paciente: document.getElementById('pacienteCritico').value,
@@ -62,6 +74,7 @@
         });
 
         const data = await res.json();
+        enviando = false;
 
         if (!res.ok) {
             alert(data.mensaje || 'Error al registrar valor crítico');
@@ -71,6 +84,11 @@
         form.reset();
         cargarCriticos();
     });
+
+
+
+
+
 
     /* GESTIONAR VALOR CRÍTICO */
     window.gestionarCritico = async function (id) {
@@ -87,5 +105,32 @@
     };
 
 
+
+
+    window.cargarPacientesCriticos = async function () {
+        const res = await fetch('http://localhost:3000/api/pacientes', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const pacientes = await res.json();
+        const select = document.getElementById('pacienteCritico');
+
+        select.innerHTML = '<option value="">Seleccione paciente</option>';
+
+        pacientes.forEach(p => {
+            const texto = `${p.nombre_completo} (${p.rut})`;
+            const option = document.createElement('option');
+            option.value = texto;
+            option.textContent = texto;
+            select.appendChild(option);
+        });
+    }
+
+
+
+
+    cargarPacientesCriticos();
     cargarCriticos();
 });

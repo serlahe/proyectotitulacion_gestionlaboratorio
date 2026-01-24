@@ -1,4 +1,5 @@
 ﻿const db = require('../config/db');
+const { registrarAuditoria } = require('../utils/auditoria');
 
 exports.crearAviso = async (req, res) => {
     const { tipo, mensaje } = req.body;
@@ -20,6 +21,12 @@ exports.crearAviso = async (req, res) => {
              (tipo, mensaje, activo, id_usuario)
              VALUES (?, ?, 1, ?)`,
             [tipo, mensaje, id_usuario]
+        );
+
+        await registrarAuditoria(
+            id_usuario,
+            'Creó aviso urgente',
+            'aviso_urgente'
         );
 
         res.status(201).json({ mensaje: 'Aviso creado correctamente' });
@@ -69,6 +76,13 @@ exports.desactivarAviso = async (req, res) => {
         console.error('ERROR DESACTIVAR AVISO:', error);
         res.status(500).json({ mensaje: 'Error al desactivar aviso' });
     }
+
+
+    await registrarAuditoria(
+        req.usuario.id_usuario,
+        'Desactivó aviso urgente',
+        'aviso_urgente'
+    );
 };
 
 

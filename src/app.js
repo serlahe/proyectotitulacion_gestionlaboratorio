@@ -11,6 +11,21 @@ const avisoUrgenteRoutes = require('./routes/avisoUrgente.routes');
 const insumoRoutes = require('./routes/insumo.routes');
 const path = require('path');
 
+
+
+
+
+const seedRoles = require('./utils/seedRoles');
+const seedUsuarios = require('./utils/seedUsuarios');
+
+async function initSeeds() {
+    await seedRoles();
+    await seedUsuarios();
+}
+
+initSeeds();
+
+
 const app = express();
 
 

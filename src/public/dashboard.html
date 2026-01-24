@@ -18,8 +18,8 @@
             <button onclick="mostrarSeccion('pacientes')">Registro pacientes</button>
             <button onclick="mostrarSeccion('insumos')">Gestion de insumos</button>
             <button onclick="mostrarSeccion('auditoria')">Auditoria</button>
-
             <button id="btnUsuarios" onclick="mostrarSeccion('usuarios')">Usuarios</button>
+
 
 
             <div class="cerrarsesion">
@@ -27,8 +27,9 @@
             </div>
 
             <div class="usuario">
-                Usuario: <span id="nombreUsuario"></span>
+                Usuario: <span id="nombreUsuarioLabel"></span>
             </div>
+
 
 
         </aside>
@@ -66,10 +67,12 @@
             <section id="criticos" class="seccion">
                 <h2>Valores críticos</h2>
                 <form id="formCritico">
-                    <input type="text" id="pacienteCritico" placeholder="Nombre del paciente" required>
+                    <select id="pacienteCritico" required>
+                        <option value="">Seleccione paciente</option>
+                    </select>
                     <input type="text" id="examenCritico" placeholder="Examen" required>
-                    <input type="number" id="resultadoCritico" required>
-                    <input type="text" id="limiteCritico" required>
+                    <input type="number" id="resultadoCritico" placeholder="Resultado" required>
+                    <input type="text" id="limiteCritico" placeholder="Limite" required>
                     <button type="submit">Registrar valor critico</button>
                 </form>
 
@@ -92,11 +95,40 @@
             </section>
 
 
-
+            <!-- GESTION PACIENTE -->
             <section id="pacientes" class="seccion">
-                <h2>Módulo pacientes</h2>
-                <p>En desarrollo</p>
+                <h2>Registro de pacientes</h2>
+
+                <form id="formPaciente">
+                    <input type="text" id="rutPaciente" placeholder="RUT" required>
+                    <input type="text" id="nombrePaciente" placeholder="Nombre completo" required>
+                    <input type="date" id="fechaNacimientoPaciente">
+                    <select id="sexoPaciente" required>
+                        <option value="">Seleccione sexo</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <button type="submit">Registrar paciente</button>
+                </form>
+
+                <hr>
+
+                <table id="tablaPacientes">
+                    <thead>
+                        <tr>
+                            <th>RUT</th>
+                            <th>Nombre</th>
+                            <th>Fecha nacimiento</th>
+                            <th>Sexo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
             </section>
+
 
 
 
@@ -116,7 +148,7 @@
 
 
 
-                <!-- TABLA -->
+                <!-- TABLA  INSUMOS-->
                 <table id="tablaInsumos">
                     <thead>
                         <tr>
@@ -154,6 +186,15 @@
             <section id="auditoria" class="seccion">
                 <h2>Registro de auditorí­a</h2>
 
+                <label for="filtroModulo">Filtrar por módulo:</label>
+                <select id="filtroModulo">
+                    <option value="">Todos</option>
+                    <option value="paciente">Pacientes</option>
+                    <option value="valores_criticos">Valores críticos</option>
+                    <option value="aviso_urgente">Avisos urgentes</option>
+                </select>
+
+
                 <table id="tablaAuditoria">
                     <thead>
                         <tr>
@@ -168,16 +209,45 @@
             </section>
 
 
+
+
+            <!-- GESTION USUARIOS -->
+            <section id="usuarios" class="seccion" style="display:none">
+                <h2>Crear Usuario</h2>
+
+                <form id="formUsuario">
+                    <input type="text" id="nombreUsuario" placeholder="Nombre completo" required>
+                    <input type="text" id="usernameUsuario" placeholder="Usuario" required>
+                    <input type="password" id="passwordUsuario" placeholder="Contraseña" required>
+
+                    <select id="rolUsuario" required>
+                        <option value="">Seleccione rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Tecnólogo Médico</option>
+                        <option value="3">Técnico de Laboratorio</option>
+                    </select>
+
+
+
+                    <button type="submit">Crear usuario</button>
+                </form>
+            </section>
+
+
+
         </main>
 
     </div>
 
     <script src="dashboard.js"></script>
     <script src="avisos.js"></script>
+    <script src="pacientes.js"></script>
     <script src="insumos.js"></script>
     <script src="movimientos.js"></script>
     <script src="valoresCriticos.js"></script>
     <script src="auditoria.js"></script>
+    <script src="usuarios.js"></script>
+
 </body>
 </html>
 

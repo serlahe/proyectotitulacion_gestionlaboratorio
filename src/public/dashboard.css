@@ -7,20 +7,30 @@
 
 .layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
+
 
 /* MENU LATERAL */
 
 .sidebar {
     width: 220px;
-    background-color: #4da3ff; /* celeste */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #4da3ff;
     color: #ffffff;
     padding: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    box-sizing: border-box;
 }
+
+
+
 
     .sidebar h3 {
         margin-top: 0;
@@ -53,18 +63,26 @@
 /* CONTENIDO PRINCIPAL */
 
 .contenido {
-    flex: 1;
-    padding: 15px;
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    padding: 25px 30px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f5f7fa;
+    box-sizing: border-box;
 }
+
+
 
 /* SECCIONES */
 
 .seccion {
     background-color: #f2f8ff;
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
 }
+
 
     .seccion h2 {
         margin-top: 0;
@@ -130,20 +148,19 @@ th {
 /* RESPONSIVE DESIGN */
 
 @media (max-width: 768px) {
-    .layout {
-        flex-direction: column;
-    }
 
     .sidebar {
+        position: relative;
         width: 100%;
+        height: auto;
         flex-direction: row;
-        flex-wrap: wrap;
     }
 
-        .sidebar button {
-            flex: 1;
-            text-align: center;
-        }
+    .contenido {
+        margin-left: 0;
+        height: auto;
+        overflow: visible;
+    }
 }
 
 

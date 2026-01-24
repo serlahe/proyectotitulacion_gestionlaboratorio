@@ -1,130 +1,42 @@
 ﻿const db = require('../config/db');
-const bcrypt = require('bcryptjs');
-
-
+const bcrypt = require('bcrypt');
+const { registrarAuditoria } = require('../utils/auditoria');
 
 exports.crearUsuario = async (req, res) => {
-    const { nombre_completo, correo, password, id_rol } = req.body;
-
-    if (!nombre_completo || !correo || !password || !id_rol) {
-        return res.status(400).json({ mensaje: 'Datos incompletos' });
-    }
-
     try {
-        // verificar correo duplicado
-        const [existe] = await db.query(
-            'SELECT id_usuario FROM usuario WHERE correo = ?',
-            [correo]
-        );
+        const { nombre_completo, correo, password, id_rol } = req.body;
 
-        if (existe.length > 0) {
-            return res.status(409).json({ mensaje: 'Correo ya registrado' });
+        if (!nombre_completo || !correo || !password || id_rol == null) {
+            return res.status(400).json({ mensaje: 'Datos incompletos' });
         }
 
-        const password_hash = await bcrypt.hash(password, 10);
+        const rolesValidos = [1, 2, 3];
+        if (!rolesValidos.includes(Number(id_rol))) {
+            return res.status(400).json({ mensaje: 'Rol inválido' });
+        }
+
+        const hash = await bcrypt.hash(password, 10);
 
         await db.query(
-            `INSERT INTO usuario
-            (nombre_completo, correo, password_hash, id_rol, activo)
-            VALUES (?, ?, ?, ?, 1)`,
-            [nombre_completo, correo, password_hash, id_rol]
+            `INSERT INTO usuario 
+             (nombre_completo, correo, password_hash, id_rol)
+             VALUES (?, ?, ?, ?)`,
+            [nombre_completo, correo, hash, id_rol]
+        );
+
+        await registrarAuditoria(
+            req.usuario.id_usuario,
+            `Creó usuario ${correo}`,
+            'usuario'
         );
 
         res.status(201).json({ mensaje: 'Usuario creado correctamente' });
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({ mensaje: 'Error al crear usuario' });
     }
 };
 
-
-
-exports.listarUsuarios = async (req, res) => {
-    try {
-        const [rows] = await db.query(
-            `SELECT 
-                id_usuario,
-                nombre_completo,
-                correo,
-                id_rol,
-                activo,
-                fecha_creacion
-             FROM usuario`
-        );
-
-        res.json(rows);
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al listar usuarios' });
-    }
-};
-
-
-exports.eliminarUsuario = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const [result] = await db.query(
-            'UPDATE usuario SET activo = 0 WHERE id_usuario = ?',
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                mensaje: 'Usuario no encontrado'
-            });
-        }
-
-        res.json({
-            mensaje: 'Usuario desactivado correctamente'
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            mensaje: 'Error al eliminar usuario'
-        });
-    }
-};
-
-
-
-exports.desactivarUsuario = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const [result] = await db.query(
-            'UPDATE usuario SET activo = 0 WHERE id_usuario = ?',
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
-        }
-
-        res.json({ mensaje: 'Usuario desactivado correctamente' });
-
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al desactivar usuario' });
-    }
-};
-
-exports.activarUsuario = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const [result] = await db.query(
-            'UPDATE usuario SET activo = 1 WHERE id_usuario = ?',
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
-        }
-
-        res.json({ mensaje: 'Usuario activado correctamente' });
-
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al activar usuario' });
-    }
-};
 
 

@@ -37,14 +37,21 @@ exports.registrarValorCritico = async (req, res) => {
 
         await db.query(
             `INSERT INTO valores_criticos
-             (paciente, examen, resultado, limite, estado)
-             VALUES (?, ?, ?, ?, 'PENDIENTE')`,
+     (paciente, examen, resultado, limite, estado)
+     VALUES (?, ?, ?, ?, 'PENDIENTE')`,
             [paciente, examen, resultado, limite]
+        );
+
+        await registrarAuditoria(
+            req.usuario.id_usuario,
+            'Registró valor crítico',
+            'valores_criticos'
         );
 
         res.status(201).json({
             mensaje: 'Valor crítico registrado correctamente'
         });
+
 
     } catch (error) {
         console.error(error);

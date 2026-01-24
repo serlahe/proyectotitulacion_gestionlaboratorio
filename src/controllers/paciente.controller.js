@@ -1,4 +1,5 @@
 ﻿const db = require('../config/db');
+const { registrarAuditoria } = require('../utils/auditoria');
 
 exports.crearPaciente = async (req, res) => {
     const { rut, nombre_completo, fecha_nacimiento, sexo } = req.body;
@@ -24,6 +25,11 @@ exports.crearPaciente = async (req, res) => {
             [rut, nombre_completo, fecha_nacimiento, sexo]
         );
 
+        await registrarAuditoria(
+            req.usuario.id_usuario,
+            'Registró paciente',
+            'paciente'
+        );
         res.status(201).json({ mensaje: 'Paciente creado correctamente' });
 
     } catch (error) {
@@ -74,6 +80,13 @@ exports.actualizarPaciente = async (req, res) => {
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al actualizar paciente' });
     }
+
+    await registrarAuditoria(
+        req.usuario.id_usuario,
+        'Actualizó paciente',
+        'paciente'
+    );
+
 };
 
 exports.eliminarPaciente = async (req, res) => {
@@ -90,6 +103,12 @@ exports.eliminarPaciente = async (req, res) => {
         }
 
         res.json({ mensaje: 'Paciente eliminado correctamente' });
+
+        await registrarAuditoria(
+            req.usuario.id_usuario,
+            'Eliminó paciente',
+            'paciente'
+        );
 
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al eliminar paciente' });
