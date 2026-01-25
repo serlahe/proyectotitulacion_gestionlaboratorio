@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //  usuario.nombre_completo;
 
 
-    const idRol = usuario.id_rol;
+    //const idRol = usuario.id_rol;
 
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
