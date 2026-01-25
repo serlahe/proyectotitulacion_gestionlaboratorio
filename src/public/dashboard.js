@@ -1,4 +1,4 @@
-const API_CRITICOS = 'http://localhost:3000/api/valores-criticos';
+const API_CRITICOS = '/api/valores-criticos';
 const idRol = 1; // mock: Administrador
 const token = 'mock';
 

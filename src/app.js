@@ -44,9 +44,10 @@ app.use('/api/valores-criticos', valorCriticoRoutes);
 app.use('/api/avisos', avisoUrgenteRoutes);
 app.use('/api/insumos', insumoRoutes);
 
-const PORT = 3000;
+
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
 });
 
-console.log(process.env.DB_HOST);
