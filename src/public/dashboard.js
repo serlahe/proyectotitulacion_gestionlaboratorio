@@ -119,8 +119,8 @@ function mostrarSeccion(id) {
 
 
 // LOGOUT
-function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    window.location.replace('login.html');
-}
+//function logout() {
+    //localStorage.removeItem('token');
+    //localStorage.removeItem('usuario');
+    //window.location.replace('login.html');
+//}
