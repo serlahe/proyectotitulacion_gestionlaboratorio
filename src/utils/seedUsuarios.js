@@ -3,8 +3,9 @@ const bcrypt = require('bcrypt');
 
 async function seedUsuarios() {
     try {
-        const res = await db.query('SELECT COUNT(*) AS total FROM usuario');
-        if (parseInt(res.rows[0].total) > 0) {
+        const [rows] = await db.query('SELECT COUNT(*) AS total FROM usuario');
+
+        if (rows[0].total > 0) {
             console.log('Usuarios iniciales ya existen');
             return;
         }
@@ -19,8 +20,9 @@ async function seedUsuarios() {
             const hash = await bcrypt.hash(u.password, 10);
 
             await db.query(
-                `INSERT INTO usuario (nombre_completo, correo, password_hash, id_rol)
-         VALUES ($1, $2, $3, $4)`,
+                `INSERT INTO usuario 
+                 (nombre_completo, correo, password_hash, id_rol)
+                 VALUES (?, ?, ?, ?)`,
                 [u.nombre, u.correo, hash, u.id_rol]
             );
         }
@@ -33,3 +35,4 @@ async function seedUsuarios() {
 }
 
 module.exports = seedUsuarios;
+

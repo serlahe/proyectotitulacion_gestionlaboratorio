@@ -11,10 +11,6 @@ const avisoUrgenteRoutes = require('./routes/avisoUrgente.routes');
 const insumoRoutes = require('./routes/insumo.routes');
 const path = require('path');
 
-
-
-
-
 const seedRoles = require('./utils/seedRoles');
 const seedUsuarios = require('./utils/seedUsuarios');
 
@@ -25,11 +21,7 @@ async function initSeeds() {
 
 initSeeds();
 
-
 const app = express();
-
-
-
 
 app.use(cors());
 app.use(express.json());
@@ -45,10 +37,7 @@ app.use('/api/valores-criticos', valorCriticoRoutes);
 app.use('/api/avisos', avisoUrgenteRoutes);
 app.use('/api/insumos', insumoRoutes);
 
-
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
 });
-
-

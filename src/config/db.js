@@ -1,12 +1,12 @@
-﻿// config/db.js
-const { Pool } = require('pg');
+﻿// CONEXION A LA BASE DE DATOS MYSQL
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || 5432,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'S3rg10l4r4!',
+    database: 'laboratorio_clinico',
+    charset: 'utf8mb4'
 });
 
 module.exports = pool;
