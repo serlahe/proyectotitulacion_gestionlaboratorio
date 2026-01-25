@@ -10,7 +10,8 @@ window.cargarAuditoria = async function () {
         return;
     }
 
-    const res = await fetch('http://localhost:3000/api/auditoria', {
+    const res = await fetch('https://gestion-laboratorio.onrender.com/api/auditoria', {
+
         headers: {
             'Authorization': `Bearer ${token}`
         }

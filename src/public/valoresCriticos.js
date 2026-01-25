@@ -1,6 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = 'http://localhost:3000/api/valores-criticos';
+    const API_URL = 'https://gestion-laboratorio.onrender.com/api/valores-criticos';
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -108,7 +108,7 @@
 
 
     window.cargarPacientesCriticos = async function () {
-        const res = await fetch('http://localhost:3000/api/pacientes', {
+        const res = await fetch('https://gestion-laboratorio.onrender.com/api/pacientes', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

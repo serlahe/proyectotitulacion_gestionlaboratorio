@@ -12,7 +12,7 @@ document.getElementById('formPaciente').addEventListener('submit', async (e) => 
     const fecha_nacimiento = document.getElementById('fechaNacimientoPaciente').value;
     const sexo = document.getElementById('sexoPaciente').value;
 
-    const res = await fetch('http://localhost:3000/api/pacientes', {
+    const res = await fetch('https://gestion-laboratorio.onrender.com/api/pacientes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ document.getElementById('formPaciente').addEventListener('submit', async (e) => 
 
 // LISTAR PACIENTES
 async function cargarPacientes() {
-    const res = await fetch('http://localhost:3000/api/pacientes', {
+    const res = await fetch('https://gestion-laboratorio.onrender.com/api/pacientes', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -88,7 +88,7 @@ async function actualizarPaciente(id) {
     const fecha_nacimiento = document.getElementById(`fecha-${id}`).value;
     const sexo = document.getElementById(`sexo-${id}`).value;
 
-    const res = await fetch(`http://localhost:3000/api/pacientes/${id}`, {
+    const res = await fetch(`https://gestion-laboratorio.onrender.com/api/pacientes/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ async function actualizarPaciente(id) {
 async function eliminarPaciente(id) {
     if (!confirm('Desea eliminar este paciente?')) return;
 
-    const res = await fetch(`http://localhost:3000/api/pacientes/${id}`, {
+    const res = await fetch(`https://gestion-laboratorio.onrender.com/api/pacientes/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`

@@ -1,6 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = 'http://localhost:3000/api/insumos';
+    const API_URL = 'https://gestion-laboratorio.onrender.com';
     const token = localStorage.getItem('token');
 
     if (!token) {

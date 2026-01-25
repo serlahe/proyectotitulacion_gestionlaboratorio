@@ -1,4 +1,5 @@
-﻿const API_URL = 'http://localhost:3000/api/auth/login';
+﻿const API_URL = 'https://gestion-laboratorio.onrender.com/api/auth/login';
+
 
 const form = document.getElementById('loginForm');
 const mensaje = document.getElementById('mensaje');

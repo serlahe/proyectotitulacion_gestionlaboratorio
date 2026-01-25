@@ -1,6 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = 'http://localhost:3000/api/avisos';
+
+    const API_URL = 'https://gestion-laboratorio.onrender.com/api/avisos';
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -12,8 +13,6 @@
     const lista = document.getElementById('listaAvisos');
     const tipo = document.getElementById('tipoAviso');
     const mensaje = document.getElementById('mensajeAviso');
-
-
 
     /* LISTAR AVISOS */
     async function cargarAvisos() {
@@ -39,8 +38,6 @@
         });
     }
 
-
-
     /* CREAR AVISO */
     form.addEventListener('submit', async e => {
         e.preventDefault();
@@ -59,18 +56,14 @@
             body: JSON.stringify(body)
         });
 
-        const data = await res.json();
-
         if (!res.ok) {
-            alert(data.mensaje || 'Error al crear aviso');
+            alert('Error al crear aviso');
             return;
         }
 
         form.reset();
         cargarAvisos();
     });
-
-
 
     /* DESACTIVAR AVISO */
     window.desactivarAviso = async function (id) {
@@ -85,6 +78,7 @@
 
         cargarAvisos();
     };
+
     cargarAvisos();
 });
 

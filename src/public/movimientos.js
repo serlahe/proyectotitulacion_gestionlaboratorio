@@ -1,5 +1,5 @@
 ﻿const tbodyMov = document.querySelector('#tablaMovimientos tbody');
-const API_MOV = 'http://localhost:3000/api/insumos/movimientos';
+const API_MOV = 'https://gestion-laboratorio.onrender.com/api/insumos/movimientos';
 const tokenMov = localStorage.getItem('token');
 
 

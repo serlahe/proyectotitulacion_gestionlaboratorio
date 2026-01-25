@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id_rol: Number(document.getElementById('rolUsuario').value)
         };
 
-        const res = await fetch('http://localhost:3000/api/usuarios', {
+        const res = await fetch('https://gestion-laboratorio.onrender.com/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

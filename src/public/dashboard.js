@@ -1,5 +1,6 @@
-const API_CRITICOS = '/api/valores-criticos';
-const idRol = 1; // mock: Administrador
+const API_BASE = 'https://gestion-laboratorio.onrender.com';
+const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
+const idRol = 1;
 const token = 'mock';
 
 document.addEventListener('DOMContentLoaded', () => {
