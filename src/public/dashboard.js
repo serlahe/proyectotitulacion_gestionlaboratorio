@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-    if (!token || !usuario) {
-        window.location.replace('login.html');
-        return;
-    }
+    //if (!token || !usuario) {
+       // window.location.replace('login.html');
+        //return;
+    //}
 
     document.getElementById('nombreUsuarioLabel').innerText =
         usuario.nombre_completo;
