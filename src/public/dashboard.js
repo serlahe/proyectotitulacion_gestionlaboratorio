@@ -2,19 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const token = localStorage.getItem('token');
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    //const token = localStorage.getItem('token');
+    //const usuario = JSON.parse(localStorage.getItem('usuario'));
 
     //if (!token || !usuario) {
        // window.location.replace('login.html');
         //return;
     //}
 
-    document.getElementById('nombreUsuarioLabel').innerText =
-        usuario.nombre_completo;
+    //document.getElementById('nombreUsuarioLabel').innerText =
+      //  usuario.nombre_completo;
 
 
-    const idRol = usuario.id_rol;
+    //const idRol = usuario.id_rol;
 
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
