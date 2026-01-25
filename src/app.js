@@ -19,7 +19,10 @@ async function initSeeds() {
     await seedUsuarios();
 }
 
-initSeeds();
+if (process.env.NODE_ENV !== 'production') {
+    initSeeds();
+}
+
 
 const app = express();
 
