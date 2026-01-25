@@ -1,22 +1,8 @@
-﻿const API_CRITICOS = 'http://localhost:3000/api/valores-criticos';
+const API_CRITICOS = 'http://localhost:3000/api/valores-criticos';
 const idRol = 1; // mock: Administrador
 const token = 'mock';
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    //const token = localStorage.getItem('token');
-    //const usuario = JSON.parse(localStorage.getItem('usuario'));
-
-    //if (!token || !usuario) {
-       // window.location.replace('login.html');
-        //return;
-    //}
-
-    //document.getElementById('nombreUsuarioLabel').innerText =
-      //  usuario.nombre_completo;
-
-
-    //const idRol = usuario.id_rol;
 
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
@@ -50,24 +36,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 limite: document.getElementById('limiteCritico').value
             };
 
-            const res = await fetch(API_CRITICOS, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(body)
-            });
+            try {
+                const res = await fetch(API_CRITICOS, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                });
 
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.mensaje || 'Error al registrar valor crítico');
-                return;
+                if (res.ok && typeof cargarCriticos === 'function') {
+                    cargarCriticos();
+                }
+            } catch (err) {
+                console.warn('Backend no disponible (ok para presentación)');
             }
 
             formCritico.reset();
-            cargarCriticos();
         });
     }
 
@@ -75,54 +61,3 @@ document.addEventListener('DOMContentLoaded', () => {
     mostrarSeccion('avisos');
 });
 
-
-
-// FUNCIONES DE NAVEGACIÓN
-function mostrarSeccion(id) {
-    document.querySelectorAll('.seccion')
-        .forEach(s => s.style.display = 'none');
-
-    const seccion = document.getElementById(id);
-    if (!seccion) return;
-
-    seccion.style.display = 'block';
-
-
-
-
-
-    // Cargar datos específicos de la sección
-    if (id === 'pacientes') {
-        cargarPacientes();
-    }
-
-    if (id === 'criticos') {
-        if (typeof cargarPacientesCriticos === 'function') {
-            cargarPacientesCriticos();
-        }
-        if (typeof cargarCriticos === 'function') {
-            cargarCriticos();
-        }
-    }
-
-
-    if (id === 'auditoria') {
-        if (typeof cargarAuditoria === 'function') {
-            cargarAuditoria();
-        }
-    }
-
-}
-
-   
-
-
-
-
-
-// LOGOUT
-//function logout() {
-    //localStorage.removeItem('token');
-    //localStorage.removeItem('usuario');
-    //window.location.replace('login.html');
-//}
