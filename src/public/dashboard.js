@@ -1,4 +1,6 @@
 ﻿const API_CRITICOS = 'http://localhost:3000/api/valores-criticos';
+const idRol = 1; // mock: Administrador
+const token = 'mock';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //  usuario.nombre_completo;
 
 
-    //const idRol = usuario.id_rol;
+    const idRol = usuario.id_rol;
 
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
