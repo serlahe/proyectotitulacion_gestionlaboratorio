@@ -1,10 +1,9 @@
-﻿const API_URL = 'https://gestion-laboratorio.onrender.com/api/auth/login';
-
+﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
+const API_LOGIN = `${API_BASE}/api/auth/login`;
 
 const form = document.getElementById('loginForm');
 const mensaje = document.getElementById('mensaje');
 
-// MANEJADOR DEL EVENTO SUBMIT DEL FORMULARIO
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -12,7 +11,7 @@ form.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(API_LOGIN, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,22 +22,18 @@ form.addEventListener('submit', async (e) => {
         const data = await res.json();
 
         if (!res.ok) {
-            mensaje.innerText = data.mensaje || 'Error al iniciar sesion';
+            mensaje.innerText = data.mensaje || 'Error al iniciar sesión';
             mensaje.style.color = 'red';
             return;
         }
 
-        // FUNCION PARA GUARDAR TOKEN Y USUARIO
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-        // REDIRIGIR UNA VEZ INGRESADO CORRECTAMENTE
         window.location.href = 'dashboard.html';
 
     } catch (error) {
-        mensaje.innerText = 'Error de conexion con el servidor';
+        mensaje.innerText = 'Error de conexión con el servidor';
         mensaje.style.color = 'red';
     }
 });
-
-

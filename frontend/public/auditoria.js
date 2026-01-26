@@ -1,7 +1,8 @@
 ﻿let auditoriaCompleta = [];
 
+const API_BASE = 'https://gestion-laboratorio.onrender.com';
+const API_AUDITORIA = `${API_BASE}/api/auditoria`;
 
-// Cargar datos de auditoría al cargar la página
 window.cargarAuditoria = async function () {
     const token = localStorage.getItem('token');
 
@@ -10,8 +11,7 @@ window.cargarAuditoria = async function () {
         return;
     }
 
-    const res = await fetch('https://gestion-laboratorio.onrender.com/api/auditoria', {
-
+    const res = await fetch(API_AUDITORIA, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -28,9 +28,6 @@ window.cargarAuditoria = async function () {
     renderAuditoria(auditoriaCompleta);
 };
 
-
-
-// Guardar datos completos para filtrado
 function renderAuditoria(lista) {
     const tbody = document.querySelector('#tablaAuditoria tbody');
     tbody.innerHTML = '';
@@ -47,8 +44,6 @@ function renderAuditoria(lista) {
     });
 }
 
-
-// Filtrar auditoría por módulo
 document.getElementById('filtroModulo').addEventListener('change', e => {
     const modulo = e.target.value;
 
@@ -60,4 +55,3 @@ document.getElementById('filtroModulo').addEventListener('change', e => {
     const filtrado = auditoriaCompleta.filter(a => a.tabla_afectada === modulo);
     renderAuditoria(filtrado);
 });
-

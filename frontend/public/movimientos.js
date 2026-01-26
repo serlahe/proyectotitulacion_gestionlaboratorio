@@ -1,9 +1,9 @@
-﻿const tbodyMov = document.querySelector('#tablaMovimientos tbody');
-const API_MOV = 'https://gestion-laboratorio.onrender.com/api/insumos/movimientos';
+﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
+const API_MOV = `${API_BASE}/api/insumos/movimientos`;
+
+const tbodyMov = document.querySelector('#tablaMovimientos tbody');
 const tokenMov = localStorage.getItem('token');
 
-
-// FUNCION PARA CARGAR MOVIMIENTOS
 async function cargarMovimientos() {
     const res = await fetch(API_MOV, {
         headers: {
@@ -28,5 +28,3 @@ async function cargarMovimientos() {
 }
 
 cargarMovimientos();
-
-

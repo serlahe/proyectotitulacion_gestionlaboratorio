@@ -1,7 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-
-    const API_URL = 'https://gestion-laboratorio.onrender.com/api/avisos';
+    const API_BASE = 'https://gestion-laboratorio.onrender.com';
+    const API_AVISOS = `${API_BASE}/api/avisos`;
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -14,12 +14,9 @@
     const tipo = document.getElementById('tipoAviso');
     const mensaje = document.getElementById('mensajeAviso');
 
-    /* LISTAR AVISOS */
     async function cargarAvisos() {
-        const res = await fetch(API_URL, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+        const res = await fetch(API_AVISOS, {
+            headers: { 'Authorization': `Bearer ${token}` }
         });
 
         const data = await res.json();
@@ -38,42 +35,29 @@
         });
     }
 
-    /* CREAR AVISO */
     form.addEventListener('submit', async e => {
         e.preventDefault();
 
-        const body = {
-            tipo: tipo.value,
-            mensaje: mensaje.value
-        };
-
-        const res = await fetch(API_URL, {
+        await fetch(API_AVISOS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify({
+                tipo: tipo.value,
+                mensaje: mensaje.value
+            })
         });
-
-        if (!res.ok) {
-            alert('Error al crear aviso');
-            return;
-        }
 
         form.reset();
         cargarAvisos();
     });
 
-    /* DESACTIVAR AVISO */
     window.desactivarAviso = async function (id) {
-        if (!confirm('Cerrar este aviso?')) return;
-
-        await fetch(`${API_URL}/${id}/desactivar`, {
+        await fetch(`${API_AVISOS}/${id}/desactivar`, {
             method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
 
         cargarAvisos();
@@ -81,5 +65,3 @@
 
     cargarAvisos();
 });
-
-
