@@ -1,5 +1,4 @@
-﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
-const API_LOGIN = `${API_BASE}/api/auth/login`;
+﻿const API_URL = 'https://gestion-laboratorio.onrender.com/api/auth/login';
 
 const form = document.getElementById('loginForm');
 const mensaje = document.getElementById('mensaje');
@@ -11,7 +10,7 @@ form.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
 
     try {
-        const res = await fetch(API_LOGIN, {
+        const res = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,9 +29,8 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-        window.location.href = 'dashboard.html';
-
-    } catch (error) {
+        window.location.href = 'index.html';
+    } catch (err) {
         mensaje.innerText = 'Error de conexión con el servidor';
         mensaje.style.color = 'red';
     }
