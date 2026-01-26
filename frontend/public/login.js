@@ -29,7 +29,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-        window.location.href = 'index.html';
+        window.location.href = '/';
     } catch (err) {
         mensaje.innerText = 'Error de conexión con el servidor';
         mensaje.style.color = 'red';
