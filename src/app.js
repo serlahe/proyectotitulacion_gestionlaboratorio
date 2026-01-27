@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// RUTA AL FRONTEND
+// FRONTEND
 const frontendPath = path.join(__dirname, '..', 'frontend', 'public');
 app.use(express.static(frontendPath));
 
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(frontendPath, 'login.html'));
 });
 
-// Rutas API
+// API
 app.use('/api/auth', authRoutes);
 app.use('/api/auditoria', require('./routes/auditoria.routes'));
 app.use('/api/usuarios', usuarioRoutes);

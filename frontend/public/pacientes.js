@@ -1,4 +1,4 @@
-const API_BASE = 'https://gestion-laboratorio.onrender.com';
+
 const API_PACIENTES = `${API_BASE}/api/pacientes`;
 
 const token = localStorage.getItem('token');

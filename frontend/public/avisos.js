@@ -1,6 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    const API_BASE = 'https://gestion-laboratorio.onrender.com';
+
     const API_AVISOS = `${API_BASE}/api/avisos`;
     const token = localStorage.getItem('token');
 

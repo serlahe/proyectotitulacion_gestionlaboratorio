@@ -1,4 +1,4 @@
-﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
+﻿
 const API_INSUMOS = `${API_BASE}/api/insumos`;
 
 document.addEventListener('DOMContentLoaded', () => {

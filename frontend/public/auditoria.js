@@ -1,6 +1,6 @@
 ﻿let auditoriaCompleta = [];
 
-const API_BASE = 'https://gestion-laboratorio.onrender.com';
+
 const API_AUDITORIA = `${API_BASE}/api/auditoria`;
 
 window.cargarAuditoria = async function () {

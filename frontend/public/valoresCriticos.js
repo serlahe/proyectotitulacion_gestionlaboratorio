@@ -1,4 +1,4 @@
-﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
+﻿
 const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
 const API_PACIENTES = `${API_BASE}/api/pacientes`;
 

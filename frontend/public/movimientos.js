@@ -1,4 +1,4 @@
-﻿const API_BASE = 'https://gestion-laboratorio.onrender.com';
+﻿
 const API_MOV = `${API_BASE}/api/insumos/movimientos`;
 
 const tbodyMov = document.querySelector('#tablaMovimientos tbody');

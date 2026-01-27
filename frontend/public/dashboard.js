@@ -1,19 +1,16 @@
-const API_BASE = 'https://gestion-laboratorio.onrender.com';
 const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
 const idRol = 1;
-const token = 'mock';
+const token = localStorage.getItem('token');
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    if (!token) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
-
-    /*
-      ROLES
-      1 = Administrador
-      2 = Tecnólogo
-      3 = Técnico laboratorio
-    */
 
     // Técnico laboratorio NO puede registrar valores críticos
     if (idRol === 3 && formCritico) {
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnUsuarios.style.display = 'none';
     }
 
-    // SUBMIT REGISTRO VALOR CRÍTICO
     if (formCritico) {
         formCritico.addEventListener('submit', async e => {
             e.preventDefault();
@@ -37,28 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 limite: document.getElementById('limiteCritico').value
             };
 
-            try {
-                const res = await fetch(API_CRITICOS, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(body)
-                });
+            const res = await fetch(API_CRITICOS, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(body)
+            });
 
-                if (res.ok && typeof cargarCriticos === 'function') {
-                    cargarCriticos();
-                }
-            } catch (err) {
-                console.warn('Backend no disponible (ok para presentación)');
+            if (res.ok && typeof cargarCriticos === 'function') {
+                cargarCriticos();
             }
 
             formCritico.reset();
         });
     }
 
-    // Sección por defecto
+    // sección inicial
     mostrarSeccion('avisos');
 });
 
