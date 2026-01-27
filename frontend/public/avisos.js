@@ -2,13 +2,7 @@
 
 
     const API_AVISOS = `${API_BASE}/api/avisos`;
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-        window.location.href = 'login.html';
-        return;
-    }
-
+   
     const form = document.getElementById('formAviso');
     const lista = document.getElementById('listaAvisos');
     const tipo = document.getElementById('tipoAviso');

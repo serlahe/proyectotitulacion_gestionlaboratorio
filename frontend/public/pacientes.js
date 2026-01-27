@@ -1,8 +1,4 @@
-
 const API_PACIENTES = `${API_BASE}/api/pacientes`;
-
-const token = localStorage.getItem('token');
-if (!token) window.location.href = 'login.html';
 
 /* CREAR PACIENTE */
 document.getElementById('formPaciente').addEventListener('submit', async e => {
@@ -53,9 +49,9 @@ async function cargarPacientes() {
                 <td><input type="date" value="${fecha}" id="fecha-${p.id_paciente}"></td>
                 <td>
                     <select id="sexo-${p.id_paciente}">
-                        <option ${p.sexo === 'Masculino' && 'selected'}>Masculino</option>
-                        <option ${p.sexo === 'Femenino' && 'selected'}>Femenino</option>
-                        <option ${p.sexo === 'Otro' && 'selected'}>Otro</option>
+                        <option ${p.sexo === 'Masculino' ? 'selected' : ''}>Masculino</option>
+                        <option ${p.sexo === 'Femenino' ? 'selected' : ''}>Femenino</option>
+                        <option ${p.sexo === 'Otro' ? 'selected' : ''}>Otro</option>
                     </select>
                 </td>
                 <td>
@@ -68,7 +64,7 @@ async function cargarPacientes() {
 }
 
 async function actualizarPaciente(id) {
-    const res = await fetch(`${API_PACIENTES}/${id}`, {
+    await fetch(`${API_PACIENTES}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -80,8 +76,6 @@ async function actualizarPaciente(id) {
             sexo: document.getElementById(`sexo-${id}`).value
         })
     });
-
-    if (!res.ok) alert('Error al actualizar');
 }
 
 async function eliminarPaciente(id) {

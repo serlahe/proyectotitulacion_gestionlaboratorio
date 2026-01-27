@@ -1,8 +1,7 @@
-﻿
-const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
-const API_PACIENTES = `${API_BASE}/api/pacientes`;
+﻿(() => {
 
-document.addEventListener('DOMContentLoaded', () => {
+    const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
+    const API_PACIENTES = `${API_BASE}/api/pacientes`;
     const token = localStorage.getItem('token');
     if (!token) return;
 
@@ -38,26 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async e => {
         e.preventDefault();
 
-        const body = {
-            paciente: document.getElementById('pacienteCritico').value,
-            examen: document.getElementById('examenCritico').value,
-            resultado: Number(document.getElementById('resultadoCritico').value),
-            limite: document.getElementById('limiteCritico').value
-        };
-
-        const res = await fetch(API_CRITICOS, {
+        await fetch(API_CRITICOS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify({
+                paciente: document.getElementById('pacienteCritico').value,
+                examen: document.getElementById('examenCritico').value,
+                resultado: Number(document.getElementById('resultadoCritico').value),
+                limite: document.getElementById('limiteCritico').value
+            })
         });
-
-        if (!res.ok) {
-            alert('Error al registrar');
-            return;
-        }
 
         form.reset();
         cargarCriticos();
@@ -68,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${token}` }
         });
-
         cargarCriticos();
     };
 
@@ -91,4 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cargarPacientesCriticos();
     cargarCriticos();
-});
+
+})();
+
