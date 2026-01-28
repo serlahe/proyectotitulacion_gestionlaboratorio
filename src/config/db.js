@@ -14,3 +14,6 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+const [r] = await db.query('SELECT DATABASE()');
+console.log(r);
