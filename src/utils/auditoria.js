@@ -1,6 +1,10 @@
 ﻿const db = require('../config/db');
 
+
+
 async function registrarAuditoria(id_usuario, accion, tabla_afectada) {
+    console.log('AUDITORIA:', id_usuario, accion, tabla_afectada);
+
     await db.query(
         `INSERT INTO auditoria (id_usuario, accion, tabla_afectada)
          VALUES (?, ?, ?)`,

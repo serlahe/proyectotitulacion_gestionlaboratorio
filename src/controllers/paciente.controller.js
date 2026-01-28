@@ -25,11 +25,14 @@ exports.crearPaciente = async (req, res) => {
             [rut, nombre_completo, fecha_nacimiento, sexo]
         );
 
+        const idUsuario = req.usuario?.id_usuario || null;
+
         await registrarAuditoria(
-            req.usuario.id_usuario,
+            idUsuario,
             'Registró paciente',
             'paciente'
         );
+
         res.status(201).json({ mensaje: 'Paciente creado correctamente' });
 
     } catch (error) {
@@ -75,17 +78,16 @@ exports.actualizarPaciente = async (req, res) => {
             return res.status(404).json({ mensaje: 'Paciente no encontrado' });
         }
 
+        const idUsuario = req.usuario?.id_usuario || null;
+
+        await registrarAuditoria(
+            idUsuario,
+            'Actualizó paciente',
+            'paciente'
+        );
+
         res.json({ mensaje: 'Paciente actualizado correctamente' });
 
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al actualizar paciente' });
-    }
-
-    await registrarAuditoria(
-        req.usuario.id_usuario,
-        'Actualizó paciente',
-        'paciente'
-    );
 
 };
 

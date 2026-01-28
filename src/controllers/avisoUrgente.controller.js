@@ -71,18 +71,19 @@ exports.desactivarAviso = async (req, res) => {
             return res.status(404).json({ mensaje: 'Aviso no encontrado' });
         }
 
+        const idUsuario = req.usuario?.id_usuario || null;
+
+        await registrarAuditoria(
+            idUsuario,
+            'Desactivó aviso urgente',
+            'aviso_urgente'
+        );
+
         res.json({ mensaje: 'Aviso desactivado' });
-    } catch (error) {
-        console.error('ERROR DESACTIVAR AVISO:', error);
-        res.status(500).json({ mensaje: 'Error al desactivar aviso' });
-    }
 
 
-    await registrarAuditoria(
-        req.usuario.id_usuario,
-        'Desactivó aviso urgente',
-        'aviso_urgente'
-    );
+    res.json({ mensaje: 'Aviso desactivado' });
+
 };
 
 

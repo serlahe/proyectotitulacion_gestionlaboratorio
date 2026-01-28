@@ -42,11 +42,14 @@ exports.registrarValorCritico = async (req, res) => {
             [paciente, examen, resultado, limite]
         );
 
+        const idUsuario = req.usuario?.id_usuario || null;
+
         await registrarAuditoria(
-            req.usuario.id_usuario,
+            idUsuario,
             'Registró valor crítico',
             'valores_criticos'
         );
+
 
         res.status(201).json({
             mensaje: 'Valor crítico registrado correctamente'
