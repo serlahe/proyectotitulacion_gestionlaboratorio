@@ -55,3 +55,7 @@ document.getElementById('filtroModulo').addEventListener('change', e => {
     const filtrado = auditoriaCompleta.filter(a => a.tabla_afectada === modulo);
     renderAuditoria(filtrado);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarAuditoria();
+});
