@@ -1,16 +1,7 @@
 // URL base del backend
 const API_BASE = 'https://gestion-laboratorio.onrender.com';
 
-// Token global
-const token = localStorage.getItem('token');
-if (!token) {
-    window.location.href = 'login.html';
-}
-
-// Usuario logueado
-const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-
-// Mostrar secciones
+// Mostrar secciones del dashboard
 function mostrarSeccion(id) {
     document.querySelectorAll('.seccion').forEach(sec => {
         sec.style.display = 'none';
@@ -20,9 +11,10 @@ function mostrarSeccion(id) {
     if (activa) activa.style.display = 'block';
 }
 
-// Logout
+// Cerrar sesión
 function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     window.location.href = 'login.html';
 }
+

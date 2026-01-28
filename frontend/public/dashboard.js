@@ -9,24 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Mostrar usuario
+    // Mostrar nombre usuario
     const nombreUsuarioLabel = document.getElementById('nombreUsuarioLabel');
     if (nombreUsuarioLabel) {
         nombreUsuarioLabel.innerText = usuario.nombre_completo;
     }
 
     const idRol = usuario.id_rol;
+
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
 
-    // Permisos por rol
-    if (idRol === 3 && formCritico) {
-        formCritico.style.display = 'none';
-    }
-
-    if ((idRol === 2 || idRol === 3) && btnUsuarios) {
-        btnUsuarios.style.display = 'none';
-    }
+    if (idRol === 3 && formCritico) formCritico.style.display = 'none';
+    if ((idRol === 2 || idRol === 3) && btnUsuarios) btnUsuarios.style.display = 'none';
 
     if (formCritico) {
         formCritico.addEventListener('submit', async e => {
@@ -56,6 +51,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // sección inicial
     mostrarSeccion('avisos');
 });
