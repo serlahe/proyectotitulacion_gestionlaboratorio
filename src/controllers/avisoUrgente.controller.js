@@ -81,9 +81,9 @@ exports.desactivarAviso = async (req, res) => {
 
         res.json({ mensaje: 'Aviso desactivado' });
 
-
-    res.json({ mensaje: 'Aviso desactivado' });
-
+    } catch (error) {
+        console.error('ERROR DESACTIVAR AVISO:', error);
+        res.status(500).json({ mensaje: 'Error al desactivar aviso' });
+    }
 };
-
 

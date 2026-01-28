@@ -88,8 +88,11 @@ exports.actualizarPaciente = async (req, res) => {
 
         res.json({ mensaje: 'Paciente actualizado correctamente' });
 
-
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al actualizar paciente' });
+    }
 };
+
 
 exports.eliminarPaciente = async (req, res) => {
     const { id } = req.params;
