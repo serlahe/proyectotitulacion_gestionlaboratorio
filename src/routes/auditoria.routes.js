@@ -9,10 +9,8 @@ const rolMiddleware = require('../middlewares/rol.middleware');
 router.get(
     '/',
     authMiddleware,
-    rolMiddleware(1,2),
+    rolMiddleware(1,2,3),
     auditoriaController.listarAuditoria
 );
 
 module.exports = router;
-
-

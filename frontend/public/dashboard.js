@@ -19,10 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formCritico = document.getElementById('formCritico');
     const btnUsuarios = document.getElementById('btnUsuarios');
+    const btnPacientes = document.getElementById('btnPacientes');
+    const btnInsumosCrear = document.getElementById('btnCrearInsumo');
 
-    if (idRol === 3 && formCritico) formCritico.style.display = 'none';
-    if ((idRol === 2 || idRol === 3) && btnUsuarios) btnUsuarios.style.display = 'none';
+    // Tecnico no ve valores criticos ni pacientes
+    if (idRol === 3) {
+        if (formCritico) formCritico.style.display = 'none';
+        if (btnPacientes) btnPacientes.style.display = 'none';
+    }
 
-  
+    // Tecnologo y tecnico no gestionan usuarios
+    if (idRol === 2 || idRol === 3) {
+        if (btnUsuarios) btnUsuarios.style.display = 'none';
+    }
+
+    // Solo admin crea insumos
+    if (idRol !== 1) {
+        if (btnInsumosCrear) btnInsumosCrear.style.display = 'none';
+    }
+
     mostrarSeccion('avisos');
 });

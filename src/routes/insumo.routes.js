@@ -3,6 +3,7 @@ const router = express.Router();
 
 const insumoController = require('../controllers/insumo.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
+const rolMiddleware = require('../middlewares/rol.middleware');
 
 // listar insumos
 router.get(
@@ -11,17 +12,19 @@ router.get(
     insumoController.listarInsumos
 );
 
-// crear insumo
+// crear insumo (SOLO ADMIN)
 router.post(
     '/',
     authMiddleware,
+    rolMiddleware(1),
     insumoController.crearInsumo
 );
 
-// registrar movimiento
+// registrar movimiento / modificar stock
 router.post(
     '/movimiento',
     authMiddleware,
+    rolMiddleware(1, 2, 3),
     insumoController.registrarMovimiento
 );
 
@@ -40,6 +43,3 @@ router.get(
 );
 
 module.exports = router;
-
-
-
