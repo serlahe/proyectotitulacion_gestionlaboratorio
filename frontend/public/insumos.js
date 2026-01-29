@@ -1,12 +1,19 @@
-﻿
-const API_INSUMOS = `${API_BASE}/api/insumos`;
+﻿const API_INSUMOS = `${API_BASE}/api/insumos`;
+const token = localStorage.getItem('token');
+const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+if (!token || !usuario) {
+    window.location.href = 'login.html';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('token');
-    if (!token) return window.location.href = 'login.html';
-
     const tbody = document.querySelector('#tablaInsumos tbody');
     const form = document.getElementById('formInsumo');
+
+    // Solo ADMIN crea insumos
+    if (usuario.id_rol !== 1 && form) {
+        form.style.display = 'none';
+    }
 
     async function cargarInsumos() {
         const res = await fetch(API_INSUMOS, {
@@ -30,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    form.addEventListener('submit', async e => {
+    form?.addEventListener('submit', async e => {
+        if (usuario.id_rol !== 1) return;
+
         e.preventDefault();
 
         await fetch(API_INSUMOS, {
@@ -68,5 +77,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cargarInsumos();
 });
-
 

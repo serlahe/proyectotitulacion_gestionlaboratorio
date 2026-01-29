@@ -1,7 +1,23 @@
 const API_PACIENTES = `${API_BASE}/api/pacientes`;
+const token = localStorage.getItem('token');
+const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+if (!token || !usuario) {
+    window.location.href = 'login.html';
+}
+
+// Técnico NO puede crear
+if (usuario.id_rol === 3) {
+    document.getElementById('formPaciente').style.display = 'none';
+}
 
 /* CREAR PACIENTE */
-document.getElementById('formPaciente').addEventListener('submit', async e => {
+document.getElementById('formPaciente')?.addEventListener('submit', async e => {
+    if (usuario.id_rol === 3) {
+        alert('Sin permisos');
+        return;
+    }
+
     e.preventDefault();
 
     const body = {
@@ -45,18 +61,22 @@ async function cargarPacientes() {
         tbody.innerHTML += `
             <tr>
                 <td>${p.rut}</td>
-                <td><input value="${p.nombre_completo}" id="nombre-${p.id_paciente}"></td>
-                <td><input type="date" value="${fecha}" id="fecha-${p.id_paciente}"></td>
+                <td><input value="${p.nombre_completo}" id="nombre-${p.id_paciente}" ${usuario.id_rol === 3 ? 'disabled' : ''}></td>
+                <td><input type="date" value="${fecha}" id="fecha-${p.id_paciente}" ${usuario.id_rol === 3 ? 'disabled' : ''}></td>
                 <td>
-                    <select id="sexo-${p.id_paciente}">
+                    <select id="sexo-${p.id_paciente}" ${usuario.id_rol === 3 ? 'disabled' : ''}>
                         <option ${p.sexo === 'Masculino' ? 'selected' : ''}>Masculino</option>
                         <option ${p.sexo === 'Femenino' ? 'selected' : ''}>Femenino</option>
                         <option ${p.sexo === 'Otro' ? 'selected' : ''}>Otro</option>
                     </select>
                 </td>
                 <td>
-                    <button onclick="actualizarPaciente(${p.id_paciente})">Actualizar</button>
-                    <button onclick="eliminarPaciente(${p.id_paciente})">Eliminar</button>
+                    ${usuario.id_rol === 3
+                ? 'Sin permisos'
+                : `
+                        <button onclick="actualizarPaciente(${p.id_paciente})">Actualizar</button>
+                        <button onclick="eliminarPaciente(${p.id_paciente})">Eliminar</button>
+                        `}
                 </td>
             </tr>
         `;
@@ -64,6 +84,8 @@ async function cargarPacientes() {
 }
 
 async function actualizarPaciente(id) {
+    if (usuario.id_rol === 3) return;
+
     await fetch(`${API_PACIENTES}/${id}`, {
         method: 'PUT',
         headers: {
@@ -76,9 +98,12 @@ async function actualizarPaciente(id) {
             sexo: document.getElementById(`sexo-${id}`).value
         })
     });
+
+    cargarPacientes();
 }
 
 async function eliminarPaciente(id) {
+    if (usuario.id_rol === 3) return;
     if (!confirm('Eliminar paciente?')) return;
 
     await fetch(`${API_PACIENTES}/${id}`, {

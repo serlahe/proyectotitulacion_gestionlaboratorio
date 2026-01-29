@@ -1,6 +1,4 @@
-﻿
-const API_MOV = `${API_BASE}/api/insumos/movimientos`;
-
+﻿const API_MOV = `${API_BASE}/api/insumos/movimientos`;
 const tbodyMov = document.querySelector('#tablaMovimientos tbody');
 const tokenMov = localStorage.getItem('token');
 
