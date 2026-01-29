@@ -1,24 +1,17 @@
 ﻿const API_INSUMOS = `${API_BASE}/api/insumos`;
-const token = localStorage.getItem('token');
-const usuario = JSON.parse(localStorage.getItem('usuario'));
-
-if (!token || !usuario) {
-    window.location.href = 'login.html';
-}
 
 document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if (!token) return window.location.href = 'login.html';
+
     const tbody = document.querySelector('#tablaInsumos tbody');
     const form = document.getElementById('formInsumo');
-
-    // Solo ADMIN crea insumos
-    if (usuario.id_rol !== 1 && form) {
-        form.style.display = 'none';
-    }
 
     async function cargarInsumos() {
         const res = await fetch(API_INSUMOS, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
+
         const data = await res.json();
         tbody.innerHTML = '';
 
@@ -29,17 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${i.stock_actual}</td>
                     <td>${i.stock_minimo}</td>
                     <td>
-                        <button onclick="mover(${i.id_insumo},'INGRESO')">+</button>
-                        <button onclick="mover(${i.id_insumo},'SALIDA')">-</button>
+                        <button onclick="mover(${i.id_insumo}, 'INGRESO')">+</button>
+                        <button onclick="mover(${i.id_insumo}, 'SALIDA')">-</button>
                     </td>
                 </tr>
             `;
         });
     }
 
-    form?.addEventListener('submit', async e => {
-        if (usuario.id_rol !== 1) return;
-
+    form.addEventListener('submit', async e => {
         e.preventDefault();
 
         await fetch(API_INSUMOS, {
@@ -69,7 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ id_insumo: id, cantidad, tipo_movimiento: tipo })
+            body: JSON.stringify({
+                id_insumo: id,
+                cantidad,
+                tipo_movimiento: tipo
+            })
         });
 
         cargarInsumos();
@@ -77,4 +72,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cargarInsumos();
 });
-

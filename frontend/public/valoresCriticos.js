@@ -1,19 +1,11 @@
 ﻿(() => {
-
     const API_CRITICOS = `${API_BASE}/api/valores-criticos`;
     const API_PACIENTES = `${API_BASE}/api/pacientes`;
     const token = localStorage.getItem('token');
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-
-    if (!token || !usuario) return;
+    if (!token) return;
 
     const form = document.getElementById('formCritico');
     const tbody = document.querySelector('#tablaCriticos tbody');
-
-    // Técnico NO puede crear
-    if (usuario.id_rol === 3 && form) {
-        form.style.display = 'none';
-    }
 
     window.cargarCriticos = async () => {
         const res = await fetch(API_CRITICOS, {
@@ -32,7 +24,7 @@
                     <td>${v.limite}</td>
                     <td>${v.estado}</td>
                     <td>
-                        ${v.estado === 'PENDIENTE' && usuario.id_rol !== 3
+                        ${v.estado === 'PENDIENTE'
                     ? `<button onclick="gestionarCritico(${v.id})">Gestionar</button>`
                     : 'Listo'}
                     </td>
@@ -41,9 +33,7 @@
         });
     };
 
-    form?.addEventListener('submit', async e => {
-        if (usuario.id_rol === 3) return;
-
+    form.addEventListener('submit', async e => {
         e.preventDefault();
 
         await fetch(API_CRITICOS, {
@@ -65,8 +55,6 @@
     });
 
     window.gestionarCritico = async id => {
-        if (usuario.id_rol === 3) return;
-
         await fetch(`${API_CRITICOS}/${id}/gestionar`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${token}` }
@@ -93,6 +81,4 @@
 
     cargarPacientesCriticos();
     cargarCriticos();
-
 })();
-
